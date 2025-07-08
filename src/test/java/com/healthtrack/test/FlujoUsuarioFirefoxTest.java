@@ -1,11 +1,15 @@
 package com.healthtrack.test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FlujoUsuarioFirefoxTest {
@@ -42,15 +46,26 @@ public class FlujoUsuarioFirefoxTest {
     @Test
     @Order(2)
     public void actualizarPeso() {
-        WebElement nuevoPesoInput = driver.findElement(By.name("nuevoPeso"));
+        // Esperar hasta que el input esté visible
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
+        WebElement nuevoPesoInput = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(By.name("nuevoPeso"))
+        );
+
         nuevoPesoInput.clear();
         nuevoPesoInput.sendKeys(String.valueOf(PESO_ACTUALIZADO));
 
-        WebElement botonActualizar = driver.findElement(By.xpath("//button[contains(text(),'Actualizar')]"));
+        // También esperamos el botón por si tarda en cargar
+        WebElement botonActualizar = wait.until(
+            ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Actualizar')]")
+            )
+        );
         botonActualizar.click();
 
         assertTrue(driver.getCurrentUrl().contains("/dashboard"));
     }
+
 
     @Test
     @Order(3)

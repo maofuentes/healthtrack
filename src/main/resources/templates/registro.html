@@ -55,10 +55,14 @@
     <input type="text" th:field="*{nombre}" id="nombre" required />
 
     <label for="peso">Peso (kg):</label>
-    <input type="number" step="0.1" min="0" th:field="*{peso}" id="peso" required />
+    <input type="number" step="0.1" min="0" th:field="*{peso}" id="peso" required onfocus="if(this.value=='0.0'){this.value='';}" />
+
+    <!-- Espacio antes del botón -->
+    <div style="height: 3rem;"></div>
 
     <button type="submit">Registrar</button>
 </form>
+
 
 </body>
 </html>
