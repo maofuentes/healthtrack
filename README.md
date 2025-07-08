@@ -1,18 +1,41 @@
-## Getting Started
+## 🎯 Contexto:
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+La empresa HealthTrack ha desarrollado una plataforma web para el monitoreo del peso de los usuarios. La aplicación permite a los usuarios registrarse y actualizar su peso cada 48 horas. Sin embargo, la plataforma tiene un error crítico: cada vez que un usuario actualiza su peso, el sistema le resta automáticamente 1 kg en lugar de registrar el valor ingresado.
 
-## Folder Structure
+El problema surge porque no se han implementado pruebas unitarias, de integración, de regresión ni de rendimiento. Además, la empresa no tiene un pipeline de CI/CD que asegure la validación automática del código antes de su despliegue.
 
-The workspace contains two folders by default, where:
+Como especialistas en automatización de pruebas, los estudiantes deberán evaluar el estado actual de la plataforma y proponer soluciones utilizando estrategias de pruebas unitarias, de integración, funcionales y de rendimiento. También deberán estructurar un pipeline de CI/CD para asegurar que estas pruebas se ejecuten automáticamente.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Código Base del Proyecto en Java
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+El siguiente código Java representa el error en la lógica del sistema. Actualmente, reduce 1 kg cada vez que un usuario actualiza su peso en lugar de registrar el valor ingresado.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## CODIGO:
 
-## Dependency Management
+public class Usuario {
+    private String nombre;
+    private double peso;
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+    public Usuario(String nombre, double peso) {
+        this.nombre = nombre;
+        this.peso = peso;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void actualizarPeso(double nuevoPeso) {
+        // ERROR: En lugar de asignar el nuevo peso, se está restando 1kg.
+        this.peso -= 1;
+    }
+
+    public void mostrarInformacion() {
+        System.out.println("Usuario: " + nombre + ", Peso Actual: " + peso + " kg");
+    }
+}
+    
