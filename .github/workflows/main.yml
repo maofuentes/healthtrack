@@ -1,4 +1,4 @@
-name: Pruebas de regresión HealthTrack
+name: Integración de las pruebas en un pipeline de CI/C
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
 
       - name: 📤 Publicar resultados (si usas Surefire)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: surefire-reports
           path: target/surefire-reports/
